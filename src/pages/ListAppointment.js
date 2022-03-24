@@ -1,7 +1,9 @@
 import React from "react";
-import { FaPencilAlt } from "react-icons/fa";
+import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 
 const Listar = () => {
+  let navigate = useNavigate();
   return (
     <div
       className="container"
@@ -17,6 +19,7 @@ const Listar = () => {
             <th>Fecha</th>
             <th>Hora</th>
             <th>Editar</th>
+            <th>Eliminar</th>
           </tr>
         </thead>
         <tbody>
@@ -27,13 +30,57 @@ const Listar = () => {
             <td>28/10/2020</td>
             <td>10:20 am</td>
             <td>
-              <a href="">
+              <Link to="/edit-appointment" className="btn">
                 <FaPencilAlt />{" "}
-              </a>{" "}
+              </Link>{" "}
+            </td>
+            <td>
+              <button
+                type="button"
+                className="btn bg-transparent"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+              >
+                <FaTrashAlt />
+              </button>
             </td>
           </tr>
         </tbody>
       </table>
+
+      {/* <!-- Modal --> */}
+      <div
+        class="modal fade"
+        id="exampleModal"
+        tabindex="-1"
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-body py-3">Desea Eliminar Esta Cita</div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn btn-primary text-white"
+                data-bs-dismiss="modal"
+                onClick={() => {
+                  navigate("/");
+                }}
+              >
+                Si
+              </button>
+              <button
+                type="button"
+                class="btn btn-secondary"
+                data-bs-dismiss="modal"
+              >
+                No
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
