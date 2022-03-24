@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
+import { getDataAppointment } from "../services/AppointmentService";
+import Loader from "../components/loader/Loader";
 
 const Listar = () => {
   let navigate = useNavigate();
-  return (
+
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getDataAppointment()
+      .then((datas) => {
+        setData(datas);
+        // setLoading(false);
+        setTimeout(() => {
+          setLoading(false);
+        }, 4000);
+      })
+      .catch((err) => console.log(err));
+  }, []);
+
+  console.log(data);
+  return loading ? (
+    <Loader />
+  ) : (
     <div
       className="container"
       style={{ minHeight: "600px", marginTop: "6rem" }}
@@ -50,19 +71,19 @@ const Listar = () => {
 
       {/* <!-- Modal --> */}
       <div
-        class="modal fade"
+        className="modal fade"
         id="exampleModal"
         tabindex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-body py-3">Desea Eliminar Esta Cita</div>
-            <div class="modal-footer">
+        <div className="modal-dialog">
+          <div className="modal-content">
+            <div className="modal-body py-3">Desea Eliminar Esta Cita</div>
+            <div className="modal-footer">
               <button
                 type="button"
-                class="btn btn-primary text-white"
+                className="btn btn-primary text-white"
                 data-bs-dismiss="modal"
                 onClick={() => {
                   navigate("/");
@@ -72,7 +93,7 @@ const Listar = () => {
               </button>
               <button
                 type="button"
-                class="btn btn-secondary"
+                className="btn btn-secondary"
                 data-bs-dismiss="modal"
               >
                 No
