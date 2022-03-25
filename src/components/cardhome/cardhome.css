@@ -1,0 +1,7 @@
+.mycard {
+    cursor: pointer;
+}
+
+.mycard:hover {
+    transform: translateY(1rem);
+}

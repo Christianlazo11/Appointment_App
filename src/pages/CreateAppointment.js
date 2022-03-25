@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 
 const CreateAppointment = () => {
-  const [name, setName] = useState("");
-  const [topic, setTopic] = useState("");
-  const [date, setDate] = useState("");
-  const [hour, setHour] = useState("");
-
-  const setData = (e) => {
-    e.preventDefault();
-    console.log("Enviando Datos ....");
+  const [form, setForm] = useState({});
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
   };
-
-  console.log(typeof name);
-  console.log(typeof topic);
-  console.log(typeof date);
-  console.log(typeof hour);
 
   return (
     <div
@@ -27,11 +20,7 @@ const CreateAppointment = () => {
       >
         <div className="col-12 col-md-8 col-lg-6 card p-4 border-lg bg-dark text-white">
           <h1 className="text-center">Crear cita</h1>
-          <form
-            onSubmit={(e) => {
-              setData(e);
-            }}
-          >
+          <form>
             <div className="row mb-3">
               <div className="col">
                 <label for="name" className="form-label">
@@ -41,9 +30,10 @@ const CreateAppointment = () => {
                   type="text"
                   className="form-control"
                   id="name"
-                  onChange={(e) => setName(e.target.value)}
-                  required
-                ></input>
+                  name="nombre"
+                  value={form.nombre}
+                  onChange={handleChange}
+                />
               </div>
             </div>
 
@@ -55,9 +45,10 @@ const CreateAppointment = () => {
                 <textarea
                   className="form-control"
                   id="tema"
-                  onChange={(e) => setTopic(e.target.value)}
-                  required
-                ></textarea>
+                  name="tema"
+                  value={form.tema}
+                  onChange={handleChange}
+                />
               </div>
             </div>
 
@@ -70,12 +61,10 @@ const CreateAppointment = () => {
                 <input
                   className="form-control"
                   type="date"
-                  onChange={(e) => {
-                    setDate(e.target.value);
-                  }}
-                  required
-                ></input>
-                <br />
+                  name="date"
+                  value={form.date}
+                  onChange={handleChange}
+                />
               </div>
             </div>
 
@@ -88,11 +77,10 @@ const CreateAppointment = () => {
                 <input
                   className="form-control"
                   type="time"
-                  onChange={(e) => {
-                    setHour(e.target.value);
-                  }}
-                  required
-                ></input>
+                  name="time"
+                  value={form.time}
+                  onChange={handleChange}
+                />
                 <br />
               </div>
             </div>
