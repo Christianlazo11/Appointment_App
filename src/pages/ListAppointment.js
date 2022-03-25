@@ -49,6 +49,7 @@ const Listar = () => {
             <th>Tema De Consulta</th>
             <th>Fecha</th>
             <th>Hora</th>
+            <th>Actualización</th>
             <th>Editar</th>
             <th>Eliminar</th>
           </tr>
@@ -61,6 +62,7 @@ const Listar = () => {
               <td>{item.topic}</td>
               <td>{item.date}</td>
               <td>{item.hour}</td>
+              <td>{item.currentTime}</td>
               <td>
                 <Link to="/edit-appointment" className="btn">
                   <FaPencilAlt />{" "}
