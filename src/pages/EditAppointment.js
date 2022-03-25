@@ -2,49 +2,62 @@ import React from "react";
 
 const EditAppointment = () => {
   return (
-    <div style={{ minHeight: "100vh", marginTop: "6rem", width: "20rem" }} class="d-flex mx-auto">
-
-      <div class=" container border border-2 border-secondary rounded-3 mx-auto 
-        mb-5 px-5 pt-4 h-100">
-        <div class="col">
+    <div
+      style={{ minHeight: "100vh", marginTop: "6rem", width: "20rem" }}
+      class="d-flex mx-auto"
+    >
+      <div
+        className=" container border border-2 border-secondary rounded-3 mx-auto 
+        mb-5 px-5 pt-4 h-100"
+      >
+        <div className="col">
           <h1>Editar cita</h1>
-          <form action=''>
-            <div class="row mb-3">
-              <div class="col">
-                <label for="name" class="form-label">Nombre de coder</label>
-                <input type="text" class="form-control" id="name"></input>
+          <form action="">
+            <div className="row mb-3">
+              <div className="col">
+                <label for="name" className="form-label">
+                  Nombre de coder
+                </label>
+                <input type="text" className="form-control" id="name"></input>
               </div>
             </div>
 
-            <div class="row mb-3">
-              <div class="col">
-                <label for="name" class="form-label">Tema de consulta</label>
-                <textarea class="form-control" id="tema" ></textarea>
+            <div className="row mb-3">
+              <div className="col">
+                <label for="name" className="form-label">
+                  Tema de consulta
+                </label>
+                <textarea className="form-control" id="tema"></textarea>
               </div>
             </div>
 
-
-            <div class="row mb-3">
-              <div class="col">
-                <label for="date" class="form-label">Fecha consulta</label>
+            <div className="row mb-3">
+              <div className="col">
+                <label for="date" className="form-label">
+                  Fecha consulta
+                </label>
                 <br />
-                <input class="" type="date"></input>
-                <br />
-              </div>
-            </div>
-
-            <div class="row mb-3">
-              <div class="col">
-                <label for="date" class="form-label">Hora consulta</label>
-                <br />
-                <input class="" type="time"></input>
+                <input className="" type="date"></input>
                 <br />
               </div>
             </div>
 
-            <div class="row mb-5">
-              <div class="col">
-                <button type="submit" class="btn btn-primary col-12">Crear</button>
+            <div className="row mb-3">
+              <div className="col">
+                <label for="date" className="form-label">
+                  Hora consulta
+                </label>
+                <br />
+                <input className="" type="time"></input>
+                <br />
+              </div>
+            </div>
+
+            <div className="row mb-5">
+              <div className="col">
+                <button type="submit" className="btn btn-primary col-12">
+                  Crear
+                </button>
               </div>
             </div>
           </form>
