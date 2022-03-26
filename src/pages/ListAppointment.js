@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
-import { getDataAppointment } from "../services/AppointmentService";
+import { Link } from "react-router-dom";
+import {
+  getDataAppointment,
+  deleteAppointment,
+} from "../services/AppointmentService";
 import Loader from "../components/loader/Loader";
 
 const Listar = () => {
-  let navigate = useNavigate();
-
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [loadData, setLoadData] = useState(false);
+
+  const deleteData = (idData) => {
+    deleteAppointment(idData)
+      .then((resp) => console.log(resp))
+      .catch((err) => console.log(err));
+    setLoadData(loadData ? false : true);
+  };
 
   useEffect(() => {
     getDataAppointment()
@@ -20,16 +29,13 @@ const Listar = () => {
         }, 1000);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [loadData]);
 
   console.log(data);
   return loading ? (
     <Loader />
   ) : (
-    <div
-      className="container"
-      style={{ minHeight: "600px", marginTop: "6rem" }}
-    >
+    <div className="container h-100 mb-5" style={{ marginTop: "6rem" }}>
       <h1 className="text-center py-5">Lista de Citas</h1>
       <button className="my-2 btn btn-primary">
         <Link
@@ -73,13 +79,13 @@ const Listar = () => {
                   type="button"
                   className="btn bg-transparent"
                   data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
+                  data-bs-target={`#modal${item.id}`}
                 >
                   <FaTrashAlt />
                 </button>
                 <div
                   className="modal fade"
-                  id="exampleModal"
+                  id={`modal${item.id}`}
                   tabIndex="-1"
                   aria-labelledby="exampleModalLabel"
                   aria-hidden="true"
@@ -95,7 +101,7 @@ const Listar = () => {
                           className="btn btn-danger text-white"
                           data-bs-dismiss="modal"
                           onClick={() => {
-                            navigate("/");
+                            deleteData(item.id);
                           }}
                         >
                           Si

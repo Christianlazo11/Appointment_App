@@ -1,5 +1,4 @@
 import React from "react";
-import { BsCardList } from "react-icons/bs";
 import CardHome from "../components/cardhome/CardHome";
 
 const Home = () => {

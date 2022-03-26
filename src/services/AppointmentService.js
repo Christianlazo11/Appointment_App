@@ -11,3 +11,14 @@ export function getDataAppointment() {
     },
   }).then((res) => res.json());
 }
+
+export function createAppointment(data) {
+  return fetch(`${URL_API}?create=1`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  }).then((res) => res.json());
+}
+
+export function deleteAppointment(id) {
+  return fetch(`${URL_API}?delete=${id}`).then((res) => res.json());
+}
