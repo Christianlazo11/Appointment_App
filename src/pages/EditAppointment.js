@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import { Link } from "react-router-dom";
 const EditAppointment = () => {
 
 
@@ -26,7 +26,7 @@ const EditAppointment = () => {
         mb-5 px-5 pt-4 h-100 row d-flex justify-content-center align-items-center"
       >
         <div className="col-12 col-md-8 col-lg-6 card p-4 border-lg bg-dark text-white">
-          <h1 className="text-center">Crear cita</h1>
+          <h1 className="text-center">Editar cita</h1>
           <form action="">
             <div className="row mb-3">
               <div className="col">
@@ -89,12 +89,11 @@ const EditAppointment = () => {
 
             <div className="row my-4">
               <div className="col">
-                <button
-                  type="submit"
-                  className="btn btn-primary text-white fs-5 col-12"
-                >
-                  Crear
-                </button>
+                <div className="btn-group col-12 gap-5" role="group" aria-label="Basic example">
+                  <button type="button" className="btn btn-primary ">Editar</button>
+                
+                  <Link to={"/list-appointment"} className="btn btn-danger">Cancelar</Link>
+                </div>
               </div>
             </div>
           </form>

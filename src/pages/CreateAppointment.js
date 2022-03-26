@@ -1,15 +1,32 @@
 import React, { useState } from 'react';
+import { Link } from "react-router-dom";
 
 const CreateAppointment = () => {
 
   const[form,setForm] = useState({});
   const handleChange = e =>{
-    setForm({
+    setForm({ 
       ...form,
       [e.target.name]:e.target.value,
     });
   };
+  
 
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+    console.log("El formulario fue enviado");
+
+    let DataSend ={
+      name:form.name,
+      topic:form.topic,
+      date:form.date,
+      hour:form.hour
+      currentTime:currentTime;
+    }
+  }
+
+  
+  const creatData = (data) =>{};
 
   return (
     <div
@@ -22,10 +39,11 @@ const CreateAppointment = () => {
       >
         <div className="col-12 col-md-8 col-lg-6 card p-4 border-lg bg-dark text-white">
           <h1 className="text-center">Crear cita</h1>
-          <form action="">
+
+          <form  onSubmit={handleSubmit} creatData={creatData}>
             <div className="row mb-3">
               <div className="col">
-                  <label for="name" className="form-label">
+                  <label htmlFor="name" className="form-label">
                     Nombre de coder
                   </label>
                   <input
@@ -41,13 +59,13 @@ const CreateAppointment = () => {
 
             <div className="row mb-3">
               <div className="col">
-                <label for="name" className="form-label">
+                <label htmlFor="name" className="form-label">
                   Tema de consulta
                 </label>
                 <textarea className="form-control"
-                id="tema" 
-                name="tema"
-                value={form.tema}
+                id="topic" 
+                name="topic"
+                value={form.topic}
                 onChange={handleChange}
                 />
               </div>
@@ -55,7 +73,7 @@ const CreateAppointment = () => {
 
             <div className="row mb-3">
               <div className="col">
-                <label for="date" className="form-label">
+                <label htmlFor="date" className="form-label">
                   Fecha consulta
                 </label>
                 <br />
@@ -69,13 +87,13 @@ const CreateAppointment = () => {
 
             <div className="row mb-3">
               <div className="col">
-                <label for="date" className="form-label">
+                <label htmlFor="hour" className="form-label">
                   Hora consulta
                 </label>
                 <br />
                 <input className="form-control" type="time"
-                name='time'
-                value={form.time}
+                name='hour'
+                value={form.hour}
                 onChange={handleChange}
                 />
                 <br />
@@ -84,12 +102,10 @@ const CreateAppointment = () => {
 
             <div className="row my-4">
               <div className="col">
-                <button
-                  type="submit"
-                  className="btn btn-primary text-white fs-5 col-12"
-                >
-                  Crear
-                </button>
+                <div className="btn-group col-12 gap-5" role="group" aria-label="Basic example">
+                  <button type="submit" className="btn btn-primary ">Crear</button>
+                  <Link to={"/"} className="btn btn-danger">Cancelar</Link>
+                </div>
               </div>
             </div>
           </form>
