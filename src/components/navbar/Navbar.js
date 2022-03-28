@@ -24,7 +24,7 @@ const Navbar = () => {
           </span>
         </button>
         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav mb-2 mb-lg-0 ms-auto">
+          <ul className="navbar-nav mb-2 mb-lg-0 ms-auto gap-3">
             <li className="nav-item">
               <NavLink className="nav-link" aria-current="page" to="/">
                 <span className="text-white fw-bold navItem hover-underline-animation">
@@ -32,34 +32,27 @@ const Navbar = () => {
                 </span>
               </NavLink>
             </li>
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                id="navbarDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
+            <li className="nav-item">
+              <NavLink
+                className="nav-link"
+                aria-current="page"
+                to="/list-appointment"
               >
-                Citas
-              </a>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li className="dropdown-item">
-                  <NavLink className="nav-link" to="/list-appointment">
-                    <span className="text-dark navItem hover-underline-animation">
-                      Lista de Citas
-                    </span>
-                  </NavLink>
-                </li>
-
-                <li className="dropdown-item">
-                  <NavLink className="nav-link" to="/create-appointment">
-                    <span className="text-dark navItem hover-underline-animation">
-                      Crear Cita
-                    </span>
-                  </NavLink>
-                </li>
-              </ul>
+                <span className="text-white fw-bold navItem hover-underline-animation">
+                  Lista de Citas
+                </span>
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink
+                className="nav-link"
+                aria-current="page"
+                to="/create-appointment"
+              >
+                <span className="text-white fw-bold navItem hover-underline-animation">
+                  Agendar Cita
+                </span>
+              </NavLink>
             </li>
           </ul>
         </div>

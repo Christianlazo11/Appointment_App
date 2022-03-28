@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { FaPencilAlt, FaTrashAlt } from "react-icons/fa";
-import { Link, useNavigate } from "react-router-dom";
-import { getDataAppointment } from "../services/AppointmentService";
+import { Link } from "react-router-dom";
+import {
+  getDataAppointment,
+  deleteAppointment,
+} from "../services/AppointmentService";
 import Loader from "../components/loader/Loader";
 
 const Listar = () => {
-  let navigate = useNavigate();
-
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
+  const [loadData, setLoadData] = useState(false);
+
+  const deleteData = (idData) => {
+    deleteAppointment(idData)
+      .then((resp) => console.log(resp))
+      .catch((err) => console.log(err));
+    setLoadData(loadData ? false : true);
+  };
 
   useEffect(() => {
     getDataAppointment()
@@ -16,21 +25,18 @@ const Listar = () => {
         setData(datas);
         // setLoading(false);
         setTimeout(() => {
-          setLoading(false);
+          setIsLoading(false);
         }, 1000);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [loadData]);
 
   console.log(data);
-  return loading ? (
+  return isLoading ? (
     <Loader />
   ) : (
-    <div
-      className="container"
-      style={{ minHeight: "600px", marginTop: "6rem" }}
-    >
-      <h1 className="text-center py-5">Lista de Citas</h1>
+    <div className="container h-100 mb-5" style={{ marginTop: "6rem", minHeight:"100vh" }}>
+      <h1 className="text-center py-3">Lista de Citas</h1>
       <button className="my-2 btn btn-primary">
         <Link
           to="/create-appointment"
@@ -41,7 +47,7 @@ const Listar = () => {
           Crear Cita{" "}
         </Link>
       </button>
-      <table className="table">
+      <table className="table table-hover bg-white">
         <thead className="table-dark">
           <tr>
             <th>Número de Cita</th>
@@ -49,6 +55,7 @@ const Listar = () => {
             <th>Tema De Consulta</th>
             <th>Fecha</th>
             <th>Hora</th>
+            <th>Actualización</th>
             <th>Editar</th>
             <th>Eliminar</th>
           </tr>
@@ -61,8 +68,9 @@ const Listar = () => {
               <td>{item.topic}</td>
               <td>{item.date}</td>
               <td>{item.hour}</td>
+              <td>{item.currentTime}</td>
               <td>
-                <Link to="/edit-appointment" className="btn">
+                <Link to={`/edit-appointment/${item.id}`} className="btn">
                   <FaPencilAlt />{" "}
                 </Link>{" "}
               </td>
@@ -71,13 +79,13 @@ const Listar = () => {
                   type="button"
                   className="btn bg-transparent"
                   data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"
+                  data-bs-target={`#modal${item.id}`}
                 >
                   <FaTrashAlt />
                 </button>
                 <div
                   className="modal fade"
-                  id="exampleModal"
+                  id={`modal${item.id}`}
                   tabIndex="-1"
                   aria-labelledby="exampleModalLabel"
                   aria-hidden="true"
@@ -93,7 +101,7 @@ const Listar = () => {
                           className="btn btn-danger text-white"
                           data-bs-dismiss="modal"
                           onClick={() => {
-                            navigate("/");
+                            deleteData(item.id);
                           }}
                         >
                           Si

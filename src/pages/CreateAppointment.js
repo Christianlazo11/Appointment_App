@@ -1,32 +1,38 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
+import { createAppointment } from "../services/AppointmentService";
+import getCurrentTime from "../utils/getCurrentTime";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-const CreateAppointment = () => {
 
-  const[form,setForm] = useState({});
-  const handleChange = e =>{
-    setForm({ 
+const CreateAppointment = () => {
+  let navigate = useNavigate();
+  const [form, setForm] = useState({});
+  const handleChange = (e) => {
+    setForm({
       ...form,
-      [e.target.name]:e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
   
 
-  const handleSubmit = (e) =>{
+  const sendData = (e) => {
     e.preventDefault();
-    console.log("El formulario fue enviado");
-
-    let DataSend ={
-      name:form.name,
-      topic:form.topic,
-      date:form.date,
-      hour:form.hour
-      currentTime:currentTime;
-    }
-  }
-
-  
-  const creatData = (data) =>{};
+    let dataSend = {
+      name: form.name,
+      topic: form.topic,
+      date: form.date,
+      hour: form.hour,
+      currentTime: getCurrentTime(),
+    };
+    console.log(dataSend.currentTime);
+    createAppointment(dataSend)
+      .then((data) => {
+        console.log(data);
+        navigate("/list-appointment");
+      })
+      .catch((err) => console.log(err));
+  };
 
   return (
     <div
@@ -39,21 +45,21 @@ const CreateAppointment = () => {
       >
         <div className="col-12 col-md-8 col-lg-6 card p-4 border-lg bg-dark text-white">
           <h1 className="text-center">Crear cita</h1>
-
-          <form  onSubmit={handleSubmit} creatData={creatData}>
+          <form onSubmit={(e) => sendData(e)}>
             <div className="row mb-3">
               <div className="col">
-                  <label htmlFor="name" className="form-label">
-                    Nombre de coder
-                  </label>
-                  <input
-                  type="text" 
+                <label htmlFor="name" className="form-label">
+                  Nombre de coder
+                </label>
+                <input
+                  type="text"
                   className="form-control"
                   id="name"
-                  name="nombre"
-                  value={form.nombre}
+                  name="name"
+                  value={form.name}
                   onChange={handleChange}
-                  />
+                  required
+                />
               </div>
             </div>
 
@@ -62,11 +68,13 @@ const CreateAppointment = () => {
                 <label htmlFor="name" className="form-label">
                   Tema de consulta
                 </label>
-                <textarea className="form-control"
-                id="topic" 
-                name="topic"
-                value={form.topic}
-                onChange={handleChange}
+                <textarea
+                  className="form-control"
+                  id="topic"
+                  name="topic"
+                  value={form.topic}
+                  onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -77,10 +85,13 @@ const CreateAppointment = () => {
                   Fecha consulta
                 </label>
                 <br />
-                <input className="form-control" type="date"
-                name='date'
-                value={form.date}
-                onChange={handleChange}
+                <input
+                  className="form-control"
+                  type="date"
+                  name="date"
+                  value={form.date}
+                  onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -91,10 +102,13 @@ const CreateAppointment = () => {
                   Hora consulta
                 </label>
                 <br />
-                <input className="form-control" type="time"
-                name='hour'
-                value={form.hour}
-                onChange={handleChange}
+                <input
+                  className="form-control"
+                  type="time"
+                  name="hour"
+                  value={form.hour}
+                  onChange={handleChange}
+                  required
                 />
                 <br />
               </div>
