@@ -1,5 +1,5 @@
 // const URL_API = "https://jsonplaceholder.typicode.com/users";
-const URL_API = "http://localhost/App_Citas_Backend/";
+const URL_API = "https://citascrud.herokuapp.com/";
 
 export function getDataAppointment() {
   return fetch(`${URL_API}`, {
