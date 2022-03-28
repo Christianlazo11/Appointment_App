@@ -35,7 +35,10 @@ const Listar = () => {
   return isLoading ? (
     <Loader />
   ) : (
-    <div className="container h-100 mb-5" style={{ marginTop: "6rem", minHeight:"100vh" }}>
+    <div
+      className="container h-100 mb-5"
+      style={{ marginTop: "6rem", minHeight: "100vh" }}
+    >
       <h1 className="text-center py-3">Lista de Citas</h1>
       <button className="my-2 btn btn-primary">
         <Link
