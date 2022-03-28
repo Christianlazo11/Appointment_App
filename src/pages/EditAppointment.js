@@ -1,15 +1,58 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  searchAppointment,
+  updateAppointment,
+} from "../services/AppointmentService";
+import getCurrentTime from "../utils/getCurrentTime";
+import Loader from "../components/loader/Loader";
 
 const EditAppointment = () => {
-  const [form, setForm] = useState({});
+  const navigate = useNavigate();
+  const [data, setData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const params = useParams();
+
+  useEffect(() => {
+    searchAppointment(params.id).then((resp) => {
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 1000);
+      setData(resp[0]);
+    });
+  }, [params.id]);
+
+  console.log(data);
+
   const handleChange = (e) => {
-    setForm({
-      ...form,
+    setData({
+      ...data,
       [e.target.name]: e.target.value,
     });
   };
 
-  return (
+  const sendData = () => {
+    let dataSend = {
+      id: data.id,
+      name: data.name,
+      topic: data.topic,
+      date: data.date,
+      hour: data.hour,
+      currentTime: getCurrentTime(),
+    };
+    console.log(dataSend);
+
+    updateAppointment(dataSend)
+      .then((resp) => {
+        console.log(resp);
+        navigate("/list-appointment");
+      })
+      .catch((err) => console.log(err));
+  };
+
+  return isLoading ? (
+    <Loader />
+  ) : (
     <div
       style={{ minHeight: "100vh", marginTop: "6rem", width: "20rem" }}
       className="d-flex mx-auto w-100"
@@ -24,9 +67,25 @@ const EditAppointment = () => {
             action=""
             onSubmit={(e) => {
               e.preventDefault();
-              console.log(form);
+              sendData();
             }}
           >
+            <div className="row mb-3">
+              <div className="col">
+                <label htmlFor="id" className="form-label">
+                  Número de Cita
+                </label>
+                <input
+                  type="text"
+                  readOnly
+                  className="form-control"
+                  id="id"
+                  name="id"
+                  value={data.id}
+                  required
+                />
+              </div>
+            </div>
             <div className="row mb-3">
               <div className="col">
                 <label htmlFor="name" className="form-label">
@@ -37,23 +96,25 @@ const EditAppointment = () => {
                   className="form-control"
                   id="name"
                   name="name"
-                  value={form.nombre}
+                  value={data.name}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
 
             <div className="row mb-3">
               <div className="col">
-                <label htmlFor="name" className="form-label">
+                <label htmlFor="topic" className="form-label">
                   Tema de consulta
                 </label>
                 <textarea
                   className="form-control"
-                  id="tema"
+                  id="topic"
                   name="topic"
-                  value={form.tema}
+                  value={data.topic}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
@@ -68,24 +129,26 @@ const EditAppointment = () => {
                   className="form-control"
                   type="date"
                   name="date"
-                  value={form.date}
+                  value={data.date}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
 
             <div className="row mb-3">
               <div className="col">
-                <label htmlFor="date" className="form-label">
+                <label htmlFor="hour" className="form-label">
                   Hora consulta
                 </label>
                 <br />
                 <input
                   className="form-control"
-                  type="time"
-                  name="time"
-                  value={form.time}
+                  type="hour"
+                  name="hour"
+                  value={data.hour}
                   onChange={handleChange}
+                  required
                 />
                 <br />
               </div>
@@ -97,7 +160,7 @@ const EditAppointment = () => {
                   type="submit"
                   className="btn btn-primary text-white fs-5 col-12"
                 >
-                  Crear
+                  Guardar
                 </button>
               </div>
             </div>

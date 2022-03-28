@@ -15,16 +15,19 @@ const CreateAppointment = () => {
   };
 
   const sendData = (e) => {
+    e.preventDefault();
     let dataSend = {
       name: form.name,
       topic: form.topic,
       date: form.date,
-      hour: form.time,
+      hour: form.hour,
       currentTime: getCurrentTime(),
     };
+    console.log(dataSend.currentTime);
     createAppointment(dataSend)
       .then((data) => {
         console.log(data);
+        navigate("/list-appointment");
       })
       .catch((err) => console.log(err));
   };
@@ -40,10 +43,10 @@ const CreateAppointment = () => {
       >
         <div className="col-12 col-md-8 col-lg-6 card p-4 border-lg bg-dark text-white">
           <h1 className="text-center">Crear cita</h1>
-          <form onSubmit={sendData}>
+          <form onSubmit={(e) => sendData(e)}>
             <div className="row mb-3">
               <div className="col">
-                <label for="name" className="form-label">
+                <label htmlFor="name" className="form-label">
                   Nombre de coder
                 </label>
                 <input
@@ -51,30 +54,32 @@ const CreateAppointment = () => {
                   className="form-control"
                   id="name"
                   name="name"
-                  value={form.nombre}
+                  value={form.name}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
 
             <div className="row mb-3">
               <div className="col">
-                <label for="name" className="form-label">
+                <label htmlFor="name" className="form-label">
                   Tema de consulta
                 </label>
                 <textarea
                   className="form-control"
-                  id="tema"
+                  id="topic"
                   name="topic"
-                  value={form.tema}
+                  value={form.topic}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
 
             <div className="row mb-3">
               <div className="col">
-                <label for="date" className="form-label">
+                <label htmlFor="date" className="form-label">
                   Fecha consulta
                 </label>
                 <br />
@@ -84,22 +89,24 @@ const CreateAppointment = () => {
                   name="date"
                   value={form.date}
                   onChange={handleChange}
+                  required
                 />
               </div>
             </div>
 
             <div className="row mb-3">
               <div className="col">
-                <label for="date" className="form-label">
+                <label htmlFor="hour" className="form-label">
                   Hora consulta
                 </label>
                 <br />
                 <input
                   className="form-control"
                   type="time"
-                  name="time"
-                  value={form.time}
+                  name="hour"
+                  value={form.hour}
                   onChange={handleChange}
+                  required
                 />
                 <br />
               </div>

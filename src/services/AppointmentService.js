@@ -22,3 +22,14 @@ export function createAppointment(data) {
 export function deleteAppointment(id) {
   return fetch(`${URL_API}?delete=${id}`).then((res) => res.json());
 }
+
+export function searchAppointment(id) {
+  return fetch(`${URL_API}?search=${id}`).then((res) => res.json());
+}
+
+export function updateAppointment(data) {
+  return fetch(`${URL_API}?update=1`, {
+    method: "POST",
+    body: JSON.stringify(data),
+  }).then((res) => res.json());
+}

@@ -9,7 +9,7 @@ import Loader from "../components/loader/Loader";
 
 const Listar = () => {
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [loadData, setLoadData] = useState(false);
 
   const deleteData = (idData) => {
@@ -25,18 +25,18 @@ const Listar = () => {
         setData(datas);
         // setLoading(false);
         setTimeout(() => {
-          setLoading(false);
+          setIsLoading(false);
         }, 1000);
       })
       .catch((err) => console.log(err));
   }, [loadData]);
 
   console.log(data);
-  return loading ? (
+  return isLoading ? (
     <Loader />
   ) : (
     <div className="container h-100 mb-5" style={{ marginTop: "6rem" }}>
-      <h1 className="text-center py-5">Lista de Citas</h1>
+      <h1 className="text-center py-3">Lista de Citas</h1>
       <button className="my-2 btn btn-primary">
         <Link
           to="/create-appointment"
@@ -47,7 +47,7 @@ const Listar = () => {
           Crear Cita{" "}
         </Link>
       </button>
-      <table className="table">
+      <table className="table table-hover bg-white">
         <thead className="table-dark">
           <tr>
             <th>Número de Cita</th>
@@ -70,7 +70,7 @@ const Listar = () => {
               <td>{item.hour}</td>
               <td>{item.currentTime}</td>
               <td>
-                <Link to="/edit-appointment" className="btn">
+                <Link to={`/edit-appointment/${item.id}`} className="btn">
                   <FaPencilAlt />{" "}
                 </Link>{" "}
               </td>
