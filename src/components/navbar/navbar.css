@@ -1,0 +1,31 @@
+.buttonNav {
+    padding: 0.2rem 1rem;
+    font-size: 1rem !important;
+}
+
+/* .buttonNav:hover {
+    background-color: #fab207 !important;
+} */
+
+.hover-underline-animation {
+    display: inline-block;
+    position: relative;
+  }
+  
+.hover-underline-animation:after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    transform: scaleX(0);
+    height: 4px;
+    bottom: 0;
+    left: 0;
+    background-color: darkcyan;
+    transform-origin: bottom right;
+    transition: transform 0.25s ease-out;
+}
+  
+.hover-underline-animation:hover:after {
+    transform: scaleX(1);
+    transform-origin: bottom left;
+}

@@ -2,6 +2,7 @@
 import React from "react";
 import { FaBars } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
+import "./navbar.css";
 
 const Navbar = () => {
   return (
@@ -27,7 +28,7 @@ const Navbar = () => {
           <ul className="navbar-nav mb-2 mb-lg-0 ms-auto gap-3">
             <li className="nav-item">
               <NavLink className="nav-link" aria-current="page" to="/">
-                <span className="text-white fw-bold navItem hover-underline-animation">
+                <span className="text-white fw-bold navItem hover-underline-animation buttonNav">
                   Inicio
                 </span>
               </NavLink>
@@ -38,7 +39,7 @@ const Navbar = () => {
                 aria-current="page"
                 to="/list-appointment"
               >
-                <span className="text-white fw-bold navItem hover-underline-animation">
+                <span className="text-white fw-bold navItem hover-underline-animation buttonNav">
                   Lista de Citas
                 </span>
               </NavLink>
@@ -49,7 +50,7 @@ const Navbar = () => {
                 aria-current="page"
                 to="/create-appointment"
               >
-                <span className="text-white fw-bold navItem hover-underline-animation">
+                <span className="text-white fw-bold navItem hover-underline-animation buttonNav">
                   Agendar Cita
                 </span>
               </NavLink>

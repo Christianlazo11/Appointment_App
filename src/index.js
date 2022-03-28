@@ -5,8 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.min.css";
 //eslint-disable-next-line no-unused-vars
 import * as bootstrap from "bootstrap";
-
-
+import "./App.css";
 
 ReactDOM.render(
   <React.StrictMode>
